@@ -1,10 +1,10 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE SEQUENCE daily_logs_seq INCREMENT 50 START 1;
-CREATE SEQUENCE food_components_seq INCREMENT 50 START 1;
-CREATE SEQUENCE food_items_seq INCREMENT 50 START 1;
+CREATE SEQUENCE daily_log_seq INCREMENT 50 START 1;
+CREATE SEQUENCE food_component_seq INCREMENT 50 START 1;
+CREATE SEQUENCE food_item_seq INCREMENT 50 START 1;
 
-CREATE TABLE users (
+CREATE TABLE "user" (
    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
    firebase_uid VARCHAR(128) UNIQUE NOT NULL,
    email VARCHAR(255) NOT NULL,
@@ -12,9 +12,9 @@ CREATE TABLE users (
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE food_items (
+CREATE TABLE food_item (
     id BIGINT PRIMARY KEY,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES "user"(id) ON DELETE CASCADE,
     name VARCHAR(255) NOT NULL,
     category VARCHAR(50) NOT NULL,
     base_calories DECIMAL(10,2),
@@ -25,18 +25,18 @@ CREATE TABLE food_items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE food_components (
+CREATE TABLE food_component (
      id BIGINT PRIMARY KEY,
-     parent_food_id BIGINT REFERENCES food_items(id) ON DELETE CASCADE,
-     child_food_id BIGINT REFERENCES food_items(id) ON DELETE CASCADE,
+     parent_food_id BIGINT REFERENCES food_item(id) ON DELETE CASCADE,
+     child_food_id BIGINT REFERENCES food_item(id) ON DELETE CASCADE,
      portion_amount DECIMAL(10,2) NOT NULL,
      unit VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE daily_logs (
+CREATE TABLE daily_log (
     id BIGINT PRIMARY KEY,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    food_item_id BIGINT REFERENCES food_items(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES "user"(id) ON DELETE CASCADE,
+    food_item_id BIGINT REFERENCES food_item(id) ON DELETE CASCADE,
     consumed_at TIMESTAMP NOT NULL,
     meal_type VARCHAR(50) NOT NULL,
     serving_size DECIMAL(10,2) NOT NULL,
