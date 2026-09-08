@@ -1,20 +1,26 @@
 package com.alvaro_chz.macrotracker.dto.food;
 
 import com.alvaro_chz.macrotracker.model.enums.Category;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import com.alvaro_chz.macrotracker.model.enums.Unit;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public record FoodItemRequest(
         @NotBlank(message = "El nombre del alimento es obligatorio.")
         @Size(max = 255, message = "El nombre no debe exceder los 255 caracteres.")
         String name,
 
-        @NotBlank(message = "El categoría del alimento es obligatoria.")
+        @NotBlank(message = "La categoría del alimento es obligatoria.")
         Category category,
+
+        @NotNull(message = "Las cantidad base es obligatoria.")
+        @Positive
+        BigDecimal baseServingAmount,
+
+        @NotNull(message = "La unidad es obligatoria.")
+        Unit baseServingUnit,
 
         @NotNull(message = "Las calorías base son obligatorias.")
         @Positive
@@ -27,6 +33,8 @@ public record FoodItemRequest(
         BigDecimal baseCarbs,
 
         @Positive
-        BigDecimal baseFats
+        BigDecimal baseFats,
+
+        Map<String, Object> aiMetadata
 ) {
 }

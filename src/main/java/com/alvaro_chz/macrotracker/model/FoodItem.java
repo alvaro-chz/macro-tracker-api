@@ -2,6 +2,7 @@ package com.alvaro_chz.macrotracker.model;
 
 
 import com.alvaro_chz.macrotracker.model.enums.Category;
+import com.alvaro_chz.macrotracker.model.enums.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcType;
@@ -42,6 +43,13 @@ public class FoodItem {
     @Column(nullable = false, length = 50)
     private Category category;
 
+    @Column(name = "base_serving_amount", precision = 10, scale = 2, nullable = false)
+    private BigDecimal baseServingAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "base_serving_unit", length = 50, nullable = false)
+    private Unit baseServingUnit;
+
     @Column(name = "base_calories", precision = 10, scale = 2)
     private BigDecimal baseCalories;
 
@@ -57,6 +65,11 @@ public class FoodItem {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "ai_metadata", columnDefinition = "jsonb")
     private Map<String, Object> aiMetadata;
+
+
+    @Column(name = "is_active", nullable = false)
+    @Builder.Default
+    private Boolean isActive = true;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

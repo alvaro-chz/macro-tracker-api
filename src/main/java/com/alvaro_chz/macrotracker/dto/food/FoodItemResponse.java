@@ -7,6 +7,8 @@ public record FoodItemResponse(
         Long id,
         String name,
         String category,
+        BigDecimal baseServingAmount,
+        String baseServingUnit,
         BigDecimal baseCalories,
         BigDecimal baseProtein,
         BigDecimal baseCarbs,
