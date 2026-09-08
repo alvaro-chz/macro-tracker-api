@@ -1,9 +1,9 @@
-package com.alvaro_chz.macrotracker.dto.daily;
+package com.alvaro_chz.macrotracker.dto.meal;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record DailyLogResponse(
+public record MealLogResponse(
         Long id,
         LocalDateTime consumedAt,
         String mealType,

@@ -3,23 +3,22 @@ package com.alvaro_chz.macrotracker.model;
 import com.alvaro_chz.macrotracker.model.enums.MealType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "daily_log")
+@Table(name = "meal_log")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
 
-public class DailyLog {
+public class MealLog {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "daily_log_seq_gen")
-    @SequenceGenerator(name = "daily_log_seq_gen", sequenceName = "daily_log_seq", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meal_log_seq_gen")
+    @SequenceGenerator(name = "meal_log_seq_gen", sequenceName = "meal_log_seq", allocationSize = 50)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
